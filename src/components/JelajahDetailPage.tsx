@@ -44,110 +44,117 @@ export const JelajahDetailPage: React.FC<JelajahDetailPageProps> = ({
 
   return (
     <div className="w-full min-h-screen bg-surface flex flex-col pb-32 animate-fadeIn">
-      {/* 1. Header Top Navigasi Kembali */}
-      <div className="sticky top-0 z-30 bg-surface/95 backdrop-blur-xl border-b border-surface-variant/40 px-5 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      {/* 1. Header Top Navigasi Kembali - Rapi, Proporsional, & Bersih */}
+      <header className="sticky top-0 z-30 bg-surface/95 backdrop-blur-md border-b border-surface-variant/40 px-4 py-3 flex items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <button
             type="button"
             onClick={onBack}
-            className="w-9 h-9 rounded-full bg-surface-container-high hover:bg-surface-container-highest flex items-center justify-center text-on-surface transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-95 flex items-center justify-center text-on-surface transition-all cursor-pointer shrink-0 border border-surface-variant/50 shadow-xs"
             aria-label="Kembali ke Jelajah"
           >
             <span className="material-symbols-outlined text-[20px]">arrow_back</span>
           </button>
-          <div className="flex flex-col">
-            <h1 className="text-base font-bold text-on-surface leading-tight">
+          <div className="flex flex-col min-w-0">
+            <h1 className="text-sm font-bold text-on-surface leading-tight truncate">
               Katalog Lengkap Jelajah
             </h1>
-            <span className="text-[11px] text-on-surface-variant">
-              {filteredItems.length} Destinasi, Produk UMKM & Seni Budaya
-            </span>
+            <p className="text-[11px] text-on-surface-variant truncate">
+              Trenggalek • {filteredItems.length} Item Wisata & Budaya
+            </p>
           </div>
         </div>
 
-        <span className="text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10">
-          Kab. Trenggalek
-        </span>
-      </div>
+        <div className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary">
+          <span className="material-symbols-outlined text-[13px]">location_on</span>
+          <span className="text-[11px] font-bold">Trenggalek</span>
+        </div>
+      </header>
 
-      <div className="px-5 pt-5 flex flex-col gap-5">
+      <div className="px-4 pt-4 flex flex-col gap-4">
         {/*
-          2. FILTER KATEGORI: PARIWISATA, UMKM, BUDAYA
-          Sesuai instruksi USER:
-          "jangan lupa tulisan pariwisata umkm budaya itu di kasih background teks yang bershape kotak rounded 0 ya, biar tegas."
+          2. FILTER KATEGORI: SEMUA, PARIWISATA, UMKM, BUDAYA (Rounded Melengkung & Modern)
         */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
-              Filter Kategori Utama
+            <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-primary">tune</span>
+              <span>Kategori Katalog</span>
             </span>
-            <span className="text-[11px] text-on-surface-variant">
-              Tampilan 3x3 Grid
+            <span className="text-[11px] text-on-surface-variant font-medium bg-surface-container px-2 py-0.5 rounded-full">
+              Grid 3x3
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
-            {/* Tombol SEMUA (rounded-none / rounded 0) */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-1 px-1">
+            {/* Tombol SEMUA */}
             <button
               type="button"
               onClick={() => handleFilterChange("SEMUA")}
-              className={`rounded-none px-2.5 py-1.5 text-[11px] font-black uppercase tracking-wider border-2 transition-all cursor-pointer ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all duration-200 active:scale-95 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 activeFilter === "SEMUA"
-                  ? "bg-on-surface text-surface border-on-surface shadow-sm"
-                  : "bg-surface-container-low text-on-surface-variant border-surface-variant/80 hover:border-on-surface"
+                  ? "bg-on-surface text-surface shadow-sm ring-2 ring-on-surface/20"
+                  : "bg-surface-container-low text-on-surface-variant border border-surface-variant/70 hover:bg-surface-container"
               }`}
             >
-              SEMUA ({JELAJAH_ALL_ITEMS.length})
+              <span>Semua</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                  activeFilter === "SEMUA"
+                    ? "bg-white/20 text-white"
+                    : "bg-surface-variant/60 text-on-surface-variant"
+                }`}
+              >
+                {JELAJAH_ALL_ITEMS.length}
+              </span>
             </button>
 
-            {/* Tombol PARIWISATA (rounded-none / rounded 0) */}
+            {/* Tombol PARIWISATA */}
             <button
               type="button"
               onClick={() => handleFilterChange("PARIWISATA")}
-              className={`rounded-none px-2.5 py-1.5 text-[11px] font-black uppercase tracking-wider border-2 transition-all cursor-pointer flex items-center gap-1 ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all duration-200 active:scale-95 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 activeFilter === "PARIWISATA"
-                  ? "bg-[#8f0012] text-white border-[#8f0012] shadow-sm"
-                  : "bg-surface-container-low text-on-surface-variant border-surface-variant/80 hover:border-[#8f0012]"
+                  ? "bg-[#8f0012] text-white shadow-sm ring-2 ring-[#8f0012]/30"
+                  : "bg-surface-container-low text-on-surface-variant border border-surface-variant/70 hover:bg-surface-container hover:text-[#8f0012]"
               }`}
             >
-              <span className="material-symbols-outlined text-[14px]">landscape</span>
-              <span>PARIWISATA</span>
+              <span className="material-symbols-outlined text-[15px]">landscape</span>
+              <span>Pariwisata</span>
             </button>
 
-            {/* Tombol UMKM (rounded-none / rounded 0) */}
+            {/* Tombol UMKM */}
             <button
               type="button"
               onClick={() => handleFilterChange("UMKM")}
-              className={`rounded-none px-2.5 py-1.5 text-[11px] font-black uppercase tracking-wider border-2 transition-all cursor-pointer flex items-center gap-1 ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all duration-200 active:scale-95 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 activeFilter === "UMKM"
-                  ? "bg-[#b45309] text-white border-[#b45309] shadow-sm"
-                  : "bg-surface-container-low text-on-surface-variant border-surface-variant/80 hover:border-[#b45309]"
+                  ? "bg-[#b45309] text-white shadow-sm ring-2 ring-[#b45309]/30"
+                  : "bg-surface-container-low text-on-surface-variant border border-surface-variant/70 hover:bg-surface-container hover:text-[#b45309]"
               }`}
             >
-              <span className="material-symbols-outlined text-[14px]">storefront</span>
+              <span className="material-symbols-outlined text-[15px]">storefront</span>
               <span>UMKM</span>
             </button>
 
-            {/* Tombol BUDAYA (rounded-none / rounded 0) */}
+            {/* Tombol BUDAYA */}
             <button
               type="button"
               onClick={() => handleFilterChange("BUDAYA")}
-              className={`rounded-none px-2.5 py-1.5 text-[11px] font-black uppercase tracking-wider border-2 transition-all cursor-pointer flex items-center gap-1 ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all duration-200 active:scale-95 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 activeFilter === "BUDAYA"
-                  ? "bg-[#7e22ce] text-white border-[#7e22ce] shadow-sm"
-                  : "bg-surface-container-low text-on-surface-variant border-surface-variant/80 hover:border-[#7e22ce]"
+                  ? "bg-[#7e22ce] text-white shadow-sm ring-2 ring-[#7e22ce]/30"
+                  : "bg-surface-container-low text-on-surface-variant border border-surface-variant/70 hover:bg-surface-container hover:text-[#7e22ce]"
               }`}
             >
-              <span className="material-symbols-outlined text-[14px]">theater_comedy</span>
-              <span>BUDAYA</span>
+              <span className="material-symbols-outlined text-[15px]">theater_comedy</span>
+              <span>Budaya</span>
             </button>
           </div>
         </div>
 
         {/*
           3. GRID 3x3 CARDS (MOBILE FIRST: Tepat 3 Kolom per Baris di Layar HP)
-          Sesuai instruksi USER:
-          "saat detail katalog lengkap jelaj bilagnku gimana sih? 3x3 kan? ini mobile app first yak, jadi 3x3 di hp makstu saya."
         */}
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {paginatedItems.map((item) => (
@@ -169,15 +176,15 @@ export const JelajahDetailPage: React.FC<JelajahDetailPageProps> = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Badge Tag Kategori Kotak Tegas Rounded-0 */}
+                {/* Badge Tag Kategori Melengkung Rapi */}
                 <div className="absolute top-1 left-1 pointer-events-none">
                   <span
-                    className={`rounded-none px-1 py-0.5 text-[7.5px] font-black uppercase tracking-wider text-white shadow-sm ${
+                    className={`rounded-md px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm ${
                       item.catalogCategory === "PARIWISATA"
-                        ? "bg-[#8f0012]"
+                        ? "bg-[#8f0012]/90"
                         : item.catalogCategory === "UMKM"
-                        ? "bg-[#b45309]"
-                        : "bg-[#7e22ce]"
+                        ? "bg-[#b45309]/90"
+                        : "bg-[#7e22ce]/90"
                     }`}
                   >
                     {item.badgeText}
@@ -185,7 +192,7 @@ export const JelajahDetailPage: React.FC<JelajahDetailPageProps> = ({
                 </div>
 
                 <div className="absolute bottom-1 right-1 pointer-events-none">
-                  <span className="px-1 py-0.5 rounded bg-primary text-white text-[7.5px] font-bold">
+                  <span className="px-1.5 py-0.5 rounded-md bg-primary/95 text-white text-[8px] font-bold shadow-sm backdrop-blur-sm">
                     {item.ticketPrice.includes("Rp") ? item.ticketPrice.split(" ")[0] : "Gratis"}
                   </span>
                 </div>
